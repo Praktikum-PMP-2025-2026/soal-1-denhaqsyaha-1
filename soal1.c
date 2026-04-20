@@ -57,7 +57,7 @@ int main () {
                     }
 
                     if (arr2[atas] != INVALID && arr2[bawh] != INVALID) {
-                        if ((arr2[atas] + arr2[bawh]) % 2 == 1) {
+                        if ((arr2[atas] + arr2[bawh]) % 2 != 0) {
                             arr2[i] = (arr2[atas] + arr2[bawh] - 1)/2;
                         } else {
                             arr2[i] = (arr2[atas] + arr2[bawh])/2;
