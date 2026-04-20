@@ -79,7 +79,9 @@ int main () {
 
     for (int i = 0; i < n; i++) {
         arr1[i] = arr2[n - i - 1];
-        sum = sum + arr1[i];
+        if (arr1[i] >= 0) {
+            sum = sum + arr1[i];
+        }
     }
 
     printf("RECOVERED");
