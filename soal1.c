@@ -15,6 +15,8 @@
 int main () {
     int n;
 
+    int count = 0;
+
     scanf("%d", &n);
 
     int arr1[n];
@@ -22,78 +24,62 @@ int main () {
 
     for (int i = 0; i < n; i++) {
         scanf("%d", &arr1[i]);
+        arr1[i] = arr2[i];
     }    
 
-    for (int i = 0; i < n; i++) {
-        arr2[n - i - 1] = arr1[i];
-    }
-
-    int count = 0;
     for (int i = 0; i < n; i++) {
         if (arr2[i] == INVALID) {
             count++;
         }
     }
+
     if (count == n) {
         for (int i = 0; i < n; i++) {
             arr2[i] = 0;
         }
-    } else {
-        for (int i = 0; i < n; i++) {
-            if (arr2[i] == INVALID) {
-                int j = 1;
-                int atas;
-                int bawh;
-                while (j < n) {
-                    if (i + j >= n - 1) {
-                        atas = n - 1;
-                    } else {
-                        atas = i + j;
-                    }
-                    if (i - j <= 0) {
-                        bawh = 0;
-                    } else {
-                        bawh = i - j;
-                    }
 
-                    if (arr2[atas] != INVALID && arr2[bawh] != INVALID) {
-                        if ((arr2[atas] + arr2[bawh]) % 2 != 0) {
-                            arr2[i] = (arr2[atas] + arr2[bawh] - 1)/2;
-                        } else {
-                            arr2[i] = (arr2[atas] + arr2[bawh])/2;
-                        }
-                        break;
-                    } else if (arr2[atas] != INVALID) {
-                        arr2[i] = arr2[atas];
-                        break; 
-                    } else if (arr2[bawh] != INVALID) {
-                        arr2[i] = arr2[bawh];
-                        break;
-                    } 
-                    j++;
+    } else { 
+        for (int i = 0; i < n; i++) {
+            int kiri = 0;
+            int kann = 0;
+            if (arr2[i] == INVALID) {
+                while (arr2[i - kiri] == INVALID && kiri <= i) {
+                    kiri++;
+                }
+                while (arr2[kann + i] == INVALID && kann <= n - i - 1) {
+                    kann++;
+                }
+                if (arr2[i - kiri] != INVALID && arr2[kann + i] != INVALID) {
+                    if ((arr2[i - kiri] + arr2[kann + i]) % 2 != 0) {
+                        arr2[i] = (arr2[i - kiri] + arr2[kann + i] - 1)/2;
+                    } else {
+                        arr2[i] = (arr2[i - kiri] + arr2[kann + i])/2;
+                    }
+                } else if (arr2[i - kiri] != INVALID) {
+                    arr2[i] = arr2[i - kiri];
+                } else if (arr2[kann + i] != INVALID) {
+                    arr2[i] = arr2[kann + i];
                 }
             }
         }
     }
+    
     int sum = 0;
-
-    for (int i = 0; i < n; i++) {
-        if (arr2[i] >= 0) {
+    for (int i = 0; i < 0; i++)  {
+        if(arr2[i] >= 0) {
             sum = sum + arr2[i];
         }
-    }
-    for (int i = 0; i < n; i++) {
-        arr1[i] = arr2[n - i -1];
+        arr1[i] = arr2[i];
     }
     if (sum == 0) {
         sum = arr1[0];
         for (int i = 1; i < n; i++) {
-            if (sum < arr1[i]) {
+            if (sum > arr1[i]) {
                 sum = arr1[i];
             }
         }
     }
-    
+
     printf("RECOVERED");
     for (int i = 0; i < n; i++) {
         printf(" %d", arr1[i]);
@@ -101,4 +87,4 @@ int main () {
     printf("\nMAX_SUM %d", sum);return 0;
 
     return 0;
-}  
+}   
